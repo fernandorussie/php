@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 21-Nov-2022 às 22:16
+-- Generation Time: 21-Nov-2022 às 23:08
 -- Versão do servidor: 5.7.21
 -- PHP Version: 7.1.16
 
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `servicos` (
   `preco_servico` varchar(220) NOT NULL,
   `status_servico` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `servicos`
@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `servicos` (
 
 INSERT INTO `servicos` (`id`, `numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`) VALUES
 (2, 1234567, 'Carpintaria', 'Reparo armario', '80', '1'),
-(3, 123123, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2');
+(3, 123123, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2'),
+(5, 9998887, 'Eletricista', 'Fio solto', '80', '1');
 
 -- --------------------------------------------------------
 

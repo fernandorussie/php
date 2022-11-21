@@ -20,13 +20,13 @@ $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
 <body>
     <div class="container mt-5 pt-5">
     <h2>Escolha o serviço desejado</h2>
-    <form  class="form-horizontal mt-5" method="post" action="preco.php">
+    <form  class="form-horizontal mt-5" method="post" action="criar_solicitacao.php">
     <div class="row mt-5">
         <div class="col-2">
             <label for="" class="">Tipo de Serviço</label>
         </div>
         <div class="col-3">
-            <select class="custom-select" name="select-tipo-servico" id="select-tipo-servico">
+            <select class="custom-select" name="nome_servico" id="select-tipo-servico">
                 <option selected>Escolha o Tipo</option>
                 <option>Bombeiro</option>
                 <option>Eletricista</option>
@@ -41,7 +41,7 @@ $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
                     <li>Vazamento em descarga</li>
                     <li>Vazamento no teto</li>
                 </ul> -->
-                <textarea class="form-control" size="3" id="validationTextarea" placeholder="" required></textarea>
+                <textarea class="form-control" name="descricao_servico" size="3" id="validationTextarea" placeholder="" required></textarea>
             </div>
         </div>
         <div class="">
@@ -49,6 +49,9 @@ $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
                 <button type="submit" class="btn btn-default">Escolher</button>
             </div>
         </div>
+        <input style="display:none" type="text" name="numero_id" value="9998887">
+        <input style="display:none" type="text" name="preco_servico" value="80">
+        <input style="display:none" type="text" name="status_servico" value="1">
     </form>
     </div>
 </body>
