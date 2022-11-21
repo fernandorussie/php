@@ -86,7 +86,9 @@ $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
             </div>
             <div class="form-group row">
                 <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button type="submit" class="btn btn-primary">
+                    <a href="listasolicitacao">Avaliar</a>
+                    </button>
                 </div>
             </div>
         </form>

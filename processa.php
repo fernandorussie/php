@@ -4,9 +4,9 @@
 include_once('conexao.php');
 //Receber os dados do formulário
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
-
-var_dump($dados);
-
+$tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
+// var_dump($dados);
+var_dump($tipo);
 //Verificar se usuario digitou em todos os campos e clicou no botão
 if(isset($_POST['email']) || isset($_POST['senha'])) {
 
@@ -18,17 +18,29 @@ if(isset($_POST['email']) || isset($_POST['senha'])) {
       if(!isset($_SESSION)) {
         session_start();
       }
-      $query_usuario = "INSERT INTO usuarios
-                    (nome, email, senha, credito) VALUES
-                    (:nome,:email,:senha, :credito)";
+      if($tipo == 1){
+        $query_cliente = "INSERT INTO clientes
+                      (nome, email, senha, credito) VALUES
+                      (:nome,:email,:senha, :credito)";
 
-      $cad_usuario = $conn->prepare($query_usuario);
-      $cad_usuario->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
-      $cad_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-      $cad_usuario->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
-      $cad_usuario->bindParam(':credito', $dados['credito'], PDO::PARAM_STR);
-      $cad_usuario->execute();
-      header("Location: sendemail.php");
+        $cad_cliente = $conn->prepare($query_cliente);
+        $cad_cliente->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $cad_cliente->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+        $cad_cliente->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
+        $cad_cliente->bindParam(':credito', $dados['credito'], PDO::PARAM_STR);
+        $cad_cliente->execute();
+        header("Location: sendemail.php");
+      }else{
+        $query_prestador = "INSERT INTO prestadores
+                    (nome, email, senha) VALUES
+                    (:nome,:email,:senha)";
+        $cad_prestador = $conn->prepare($query_prestador);
+        $cad_prestador->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
+        $cad_prestador->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+        $cad_prestador->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
+        $cad_prestador->execute();
+        header("Location: sendemail.php");
+      }      
     }
   }
 ?>

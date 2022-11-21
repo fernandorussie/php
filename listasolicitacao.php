@@ -55,14 +55,14 @@ include_once('protect.php');
                         </tr>
                         <?php 
 
-                        $query_servico = "SELECT id, numero_id, nome_servico, descricao_servico, preco_servico 
+                        $query_servico = "SELECT id, numero_id, nome_servico, descricao_servico, preco_servico, status_servico
                                             FROM servicos 
                                             ORDER BY id DESC";
                         $result_servico = $conn->prepare($query_servico);
                         $result_servico->execute();
 
                         while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
-                            var_dump($row_servico);
+                            // var_dump($row_servico);
                             extract($row_servico);
                         
                         ?>
@@ -73,13 +73,29 @@ include_once('protect.php');
                             <td><?php echo "$descricao_servico"?></td>
                             <td>
                                 <div class="d-block">
-                                    <p>Aguardando inicio</p>
-                                    <a href="#">Cancelar</a>
+                                    <?php 
+                                    if($status_servico == "1"){
+                                       echo " <p href='#'>
+                                       Aguardando</p>";
+                                    }elseif($status_servico == "2"){
+                                        echo " <p href='#'>
+                                       Executado</p>";
+                                    }
+                                    ?>
+                                    <?php 
+                                    if($status_servico == "1"){
+                                       echo " <a href='#'>
+                                       Cancelar</a>";
+                                    }elseif($status_servico == "2"){
+                                        echo " <a href='avaliacao.php'>
+                                       Avaliar</a>";
+                                    }
+                                    ?>
                                 </div>
                             </td>
                         </tr>
                         <?php } ?>
-                        <tr>
+                        <!-- <tr>
                             <td>8743462</td> 
                             <td>01/03/2022</td>
                             <td>Carpintaria - Reparo armario</td>
@@ -144,7 +160,7 @@ include_once('protect.php');
                                     <a href="#">Cancelar</a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <div class="mt-5">

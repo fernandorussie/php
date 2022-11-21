@@ -50,6 +50,6 @@ if ($sucesso){
         <h3>Você não está cadastrado no Serviço Fácil!</h3>
         <p>Houve algum erro no envio do email.</p>
         <?php } ?>
-      <a href="cadastro.php">Voltar</a>
+      <a href="index.php">Voltar</a>
   </body>
 </html>

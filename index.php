@@ -14,7 +14,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
   }else{
     // var_dump($dados);
     $query_usuario = "SELECT id,nome, email, senha, credito 
-                      FROM clientes 
+                      FROM clientes
                       WHERE email = :email 
                       LIMIT 1";
     $result_usuario = $conn->prepare($query_usuario);
@@ -148,9 +148,9 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
             <button type="submit" class="btn btn-default">Entrar</button>
           </div>
         </div>
+        <p><a href="cadastro.php?tipo=1" value="1">Quero ser cliente do Serviço Fácil</a></p>
+        <p><a href="cadastro.php?tipo=2" value="2">Sou profissional e quero me candidatar a prestar serviços</a></p>
       </form>
-        <p><a href="cadastro.php?tipo=Cliente">Quero ser cliente do Serviço Fácil</a></p>
-        <p><a href="cadastro.php?tipo=Prestador">Sou profissional e quero me candidatar a prestar serviços</a></p>
       </div>
     </body>
     </html>
