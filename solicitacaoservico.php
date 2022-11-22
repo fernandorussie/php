@@ -1,6 +1,7 @@
 <?php
 $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
-
+include_once('protect.php');
+include_once('conexao.php');
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +50,7 @@ $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
                 <button type="submit" class="btn btn-default">Escolher</button>
             </div>
         </div>
-        <input style="display:none" type="text" name="numero_id" value="9998887">
+        <input style="display:none" type="text" name="numero_id" value="<?= rand(1000000,1000099); ?>">
         <input style="display:none" type="text" name="preco_servico" value="80">
         <input style="display:none" type="text" name="status_servico" value="1">
     </form>

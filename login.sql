@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 21-Nov-2022 às 23:08
--- Versão do servidor: 5.7.21
--- PHP Version: 7.1.16
+-- Tempo de geração: 22-Nov-2022 às 14:37
+-- Versão do servidor: 5.7.36
+-- versão do PHP: 7.4.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `login`
+-- Banco de dados: `login`
 --
 
 -- --------------------------------------------------------
@@ -60,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `prestadores` (
   `email` varchar(140) NOT NULL,
   `senha` varchar(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `prestadores`
@@ -85,16 +84,15 @@ CREATE TABLE IF NOT EXISTS `servicos` (
   `preco_servico` varchar(220) NOT NULL,
   `status_servico` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `servicos`
 --
 
 INSERT INTO `servicos` (`id`, `numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`) VALUES
-(2, 1234567, 'Carpintaria', 'Reparo armario', '80', '1'),
 (3, 123123, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2'),
-(5, 9998887, 'Eletricista', 'Fio solto', '80', '1');
+(13, 1000018, 'Bombeiro', '1241414', '80', '1');
 
 -- --------------------------------------------------------
 

@@ -55,7 +55,7 @@ include_once('protect.php');
                         </tr>
                         <?php 
 
-                        $query_servico = "SELECT id, numero_id, nome_servico, descricao_servico, preco_servico, status_servico
+                        $query_servico = "  SELECT id, numero_id, nome_servico, descricao_servico, preco_servico, status_servico
                                             FROM servicos 
                                             ORDER BY id DESC";
                         $result_servico = $conn->prepare($query_servico);
@@ -84,8 +84,13 @@ include_once('protect.php');
                                     ?>
                                     <?php 
                                     if($status_servico == "1"){
-                                       echo " <a href='#'>
-                                       Cancelar</a>";
+                                       echo "
+                                       <form method='post' action='excluir_servico.php'>
+                                       <input type='hidden' name='id' value='$numero_id'>
+                                       <button type='submit' style='border:none; color: #007bff;
+                                       text-decoration: none;
+                                       background-color: transparent;'>Cancelar</button>
+                                       </form>";
                                     }elseif($status_servico == "2"){
                                         echo " <a href='avaliacao.php'>
                                        Avaliar</a>";

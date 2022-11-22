@@ -3,6 +3,10 @@ session_start();
 ob_start();
 include_once('conexao.php');
 
+//Exemplo com criptografia de senha:
+
+// echo password_hash(senha1, PASSWORD_DEFAULT);
+
 //SEGUNDA FORMA DE LOGIN COM PDO
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
@@ -12,30 +16,56 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
   }elseif(strlen($_POST['senha']) == 0){
     echo "Preencha sua senha!";
   }else{
-    // var_dump($dados);
-    $query_usuario = "SELECT id,nome, email, senha, credito 
-                      FROM clientes
-                      WHERE email = :email 
-                      LIMIT 1";
-    $result_usuario = $conn->prepare($query_usuario);
-    $result_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-    $result_usuario->execute();
-
-    if(($result_usuario) AND ($result_usuario->rowCount() != 0)){
-      $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
-      // var_dump($row_usuario);
-      if($dados['senha'] === $row_usuario['senha']){
-        // if(password_verify($dados['senha'], $row_usuario['senha'])){
-        echo "Usuário logado!";
-        $_SESSION['id'] = $row_usuario['id'];
-        $_SESSION['nome'] = $row_usuario['nome'];
-        $_SESSION['credito'] = $row_usuario['credito'];
-        header("Location: listasolicitacao.php");
+    var_dump($dados['tipo_login']);
+    if($dados['tipo_login'] == 'cliente'){
+      $query_usuario = "SELECT id,nome, email, senha, credito 
+                        FROM clientes
+                        WHERE email = :email 
+                        LIMIT 1";
+      $result_usuario = $conn->prepare($query_usuario);
+      $result_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+      $result_usuario->execute();
+  
+      if(($result_usuario) AND ($result_usuario->rowCount() != 0)){
+        $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
+        // var_dump($row_usuario);
+        if($dados['senha'] === $row_usuario['senha']){
+          // if(password_verify($dados['senha'], $row_usuario['senha'])){
+          echo "Usuário logado!";
+          $_SESSION['id'] = $row_usuario['id'];
+          $_SESSION['nome'] = $row_usuario['nome'];
+          $_SESSION['credito'] = $row_usuario['credito'];
+          header("Location: listasolicitacao.php");
+        }else{
+          $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
+        }
       }else{
         $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
       }
-    }else{
-      $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
+    }elseif($dados['tipo_login'] == 'prestador'){
+      $query_usuario = "SELECT id,nome, email, senha 
+                        FROM prestadores
+                        WHERE email = :email 
+                        LIMIT 1";
+      $result_usuario = $conn->prepare($query_usuario);
+      $result_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
+      $result_usuario->execute();
+  
+      if(($result_usuario) AND ($result_usuario->rowCount() != 0)){
+        $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
+        // var_dump($row_usuario);
+        if($dados['senha'] === $row_usuario['senha']){
+          // if(password_verify($dados['senha'], $row_usuario['senha'])){
+          echo "Usuário logado!";
+          $_SESSION['id'] = $row_usuario['id'];
+          $_SESSION['nome'] = $row_usuario['nome'];
+          header("Location: painelprestador.php");
+        }else{
+          $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
+        }
+      }else{
+        $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
+      }
     }
   }
   if(isset($_SESSION['msg'])){
@@ -44,9 +74,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
   }
 }
 
-//Exemplo com criptografia de senha:
 
-// echo password_hash(senha1, PASSWORD_DEFAULT);
 
 // if (!empty($dados['SendLogin'])) {
 //     var_dump($dados);
@@ -125,6 +153,8 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>  
+
+    <link rel="stylesheet" href="./css/styles.css">
   </head>
   <body>
 
@@ -140,12 +170,19 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           </div>
           <label class="col-sm-2 control-label" for="senha">Senha</label>
           <div class="col-sm-10">
-            <input type="password" name="senha" id="senha" class="form-control" value="<?php if(isset($dados['senha'])){ echo $dados['senha']; } ?>"/>
+            <input type="password" name="senha" id="senha" class="form-control" />
           </div>
         </div>
         <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
+          <div class="col-sm-offset-2 col-sm-10 input-login">
             <button type="submit" class="btn btn-default">Entrar</button>
+            <label for="tipo_login">Selecione a fomra de login
+              <select name="tipo_login" class="form-control" id="tipo_login" tabindex="3">
+                <option value="cliente" selected>Cliente</option>
+                <option value="prestador">Prestador</option>
+                <option value="administrador">Administrador</option>
+              </select>
+            </label>
           </div>
         </div>
         <p><a href="cadastro.php?tipo=1" value="1">Quero ser cliente do Serviço Fácil</a></p>

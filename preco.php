@@ -1,5 +1,5 @@
 <?php
-    
+    include_once('protect.php');
 ?>
 <!DOCTYPE html>
 <html>

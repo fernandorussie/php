@@ -1,4 +1,5 @@
 <?php
+include_once('protect.php');
   $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
   var_dump($tipo);
   // if(isset($_POST['email']) || isset($_POST['senha'])) {

@@ -1,7 +1,7 @@
 <?php
 //Incluir a conexao com banco de dados
 include_once('conexao.php');
-
+include_once('protect.php');
 //Receber os dados do formulário
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 var_dump($dados);

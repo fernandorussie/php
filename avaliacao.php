@@ -1,6 +1,6 @@
 <?php
 $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
-
+include_once('protect.php');
 ?>
 <!DOCTYPE html>
 <html>

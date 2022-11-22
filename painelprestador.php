@@ -1,3 +1,15 @@
+<?php
+session_start();
+ob_start();
+include_once ('conexao.php');
+include_once('protect.php');
+
+//Logout simples
+// if((!isset($_SESSION['id'])) AND (!isset($_SESSION['nome']))){
+//     $_SESSION['msg'] = "<p style='color: #ff0000'>Erro: Necessário realizar o login para acessar a página!</p>";
+//     header("Location: index.php");
+// }
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,9 +22,9 @@
     <body>
         <div class="container mt-5 pt-5">
             <div class="w-25 d-flex justify-content-around">
-                <p>Prestador: jorge@ymail.com</p> 
+                <p>Prestador: <?php echo $_SESSION['nome'];?></p> 
                 <span>|</span>
-                <a href="#">Sair</a>
+                <a href="logout.php">Sair</a>
             </div>    
             <div class="form-group">
                 <table class="table table-borderless">

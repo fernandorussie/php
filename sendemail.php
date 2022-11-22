@@ -1,5 +1,5 @@
 <?php
-
+include_once('protect.php');
 $to = filter_input(INPUT_POST, "email", FILTER_SANITIZE_STRING);
 //$to = 'herbert.rufino@gmail.com';
 $subject = 'Confirmação de cadastro';
