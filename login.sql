@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 22-Nov-2022 às 14:37
--- Versão do servidor: 5.7.36
--- versão do PHP: 7.4.26
+-- Host: 127.0.0.1
+-- Tempo de geração: 22-Nov-2022 às 20:30
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,15 +27,13 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clientes` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) NOT NULL,
   `email` varchar(140) NOT NULL,
   `senha` varchar(16) NOT NULL,
-  `credito` int(3) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `credito` int(3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `clientes`
@@ -52,14 +50,12 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `credito`) VALUES
 -- Estrutura da tabela `prestadores`
 --
 
-DROP TABLE IF EXISTS `prestadores`;
-CREATE TABLE IF NOT EXISTS `prestadores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `prestadores` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) NOT NULL,
   `email` varchar(140) NOT NULL,
-  `senha` varchar(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `senha` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `prestadores`
@@ -75,24 +71,25 @@ INSERT INTO `prestadores` (`id`, `nome`, `email`, `senha`) VALUES
 -- Estrutura da tabela `servicos`
 --
 
-DROP TABLE IF EXISTS `servicos`;
-CREATE TABLE IF NOT EXISTS `servicos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `servicos` (
   `numero_id` int(7) NOT NULL,
   `nome_servico` varchar(220) NOT NULL,
   `descricao_servico` varchar(220) NOT NULL,
   `preco_servico` varchar(220) NOT NULL,
-  `status_servico` varchar(30) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+  `status_servico` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `servicos`
 --
 
-INSERT INTO `servicos` (`id`, `numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`) VALUES
-(3, 123123, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2'),
-(13, 1000018, 'Bombeiro', '1241414', '80', '1');
+INSERT INTO `servicos` (`numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`) VALUES
+(1, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2'),
+(100000, 'Bombeiro', '123', '80', '1'),
+(100001, 'Bombeiro', '58', '80', '1'),
+(100002, 'Bombeiro', '7774', '80', '1'),
+(100003, 'Bombeiro', 'cano', '80', '1'),
+(100004, 'Mecanico', 'cano', '80', '1');
 
 -- --------------------------------------------------------
 
@@ -100,15 +97,13 @@ INSERT INTO `servicos` (`id`, `numero_id`, `nome_servico`, `descricao_servico`, 
 -- Estrutura da tabela `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) DEFAULT NULL,
   `email` varchar(140) NOT NULL,
   `senha` varchar(220) NOT NULL,
-  `credito` decimal(20,0) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+  `credito` decimal(20,0) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios`
@@ -123,13 +118,11 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `credito`) VALUES
 -- Estrutura da tabela `usuarios1`
 --
 
-DROP TABLE IF EXISTS `usuarios1`;
-CREATE TABLE IF NOT EXISTS `usuarios1` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios1` (
+  `id` int(11) NOT NULL,
   `usuario` varchar(220) NOT NULL,
-  `senha_usuario` varchar(220) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `senha_usuario` varchar(220) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios1`
@@ -137,6 +130,74 @@ CREATE TABLE IF NOT EXISTS `usuarios1` (
 
 INSERT INTO `usuarios1` (`id`, `usuario`, `senha_usuario`) VALUES
 (1, 'cesar@celke.com.br', 'senha1');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `prestadores`
+--
+ALTER TABLE `prestadores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `servicos`
+--
+ALTER TABLE `servicos`
+  ADD PRIMARY KEY (`numero_id`);
+
+--
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `usuarios1`
+--
+ALTER TABLE `usuarios1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `prestadores`
+--
+ALTER TABLE `prestadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `servicos`
+--
+ALTER TABLE `servicos`
+  MODIFY `numero_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100005;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios1`
+--
+ALTER TABLE `usuarios1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

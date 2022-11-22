@@ -55,9 +55,9 @@ include_once('protect.php');
                         </tr>
                         <?php 
 
-                        $query_servico = "  SELECT id, numero_id, nome_servico, descricao_servico, preco_servico, status_servico
+                        $query_servico = "  SELECT numero_id, nome_servico, descricao_servico, preco_servico, status_servico
                                             FROM servicos 
-                                            ORDER BY id DESC";
+                                            ORDER BY numero_id DESC";
                         $result_servico = $conn->prepare($query_servico);
                         $result_servico->execute();
 
