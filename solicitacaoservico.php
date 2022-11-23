@@ -1,8 +1,8 @@
 <?php
+
 $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
 include_once('protect.php');
 include_once('conexao.php');
-echo uniqid(rand(), true)
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ echo uniqid(rand(), true)
         <div class="col-3">
             <select class="custom-select" name="nome_servico" id="select-tipo-servico">
                 <option selected>Escolha o Tipo</option>
-                <option>Bombeiro</option>
+                <option>Bombeiro Hidráulico</option>
                 <option>Eletricista</option>
                 <option>Mecanico</option>
             </select>

@@ -54,9 +54,12 @@ include_once('protect.php');
                             <th>Status:</th>
                         </tr>
                         <?php 
-
-                        $query_servico = "  SELECT numero_id, nome_servico, descricao_servico, preco_servico, status_servico
-                                            FROM servicos 
+                        $id = $_SESSION['id'];
+                        $query_servico = "  SELECT *
+                                            FROM servicos as s
+                                            INNER JOIN clientes as c
+                                            ON s.id_cliente = c.id
+                                            WHERE c.id = $id
                                             ORDER BY numero_id DESC";
                         $result_servico = $conn->prepare($query_servico);
                         $result_servico->execute();
@@ -100,72 +103,7 @@ include_once('protect.php');
                             </td>
                         </tr>
                         <?php } ?>
-                        <!-- <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Carpintaria - Reparo armario</td>
-                            <td>
-                                <div class="d-block">
-                                    <p>Em execução</p>
-                                    <a href="#"></a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>
-                                <div class="d-block">
-                                    <p></p>
-                                    <a href="#" data-toggle="modal" data-target="#ExemploModalCentralizado">Pendente</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>
-                                <div class="d-block">
-                                    <p>Aguardando inicio</p>
-                                    <a href="#">Cancelar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>
-                                <div class="d-block">
-                                    <p>Aguardando inicio</p>
-                                    <a href="#">Cancelar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>
-                                <div class="d-block">
-                                    <p>Aguardando inicio</p>
-                                    <a href="#">Cancelar</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8743462</td> 
-                            <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>
-                                <div class="d-block">
-                                    <p>Aguardando inicio</p>
-                                    <a href="#">Cancelar</a>
-                                </div>
-                            </td>
-                        </tr> -->
+                        
                     </tbody>
                 </table>
                 <div class="mt-5">

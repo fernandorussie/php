@@ -34,32 +34,52 @@ include_once('protect.php');
                     <tbody>
                         <th>Novo serviço solicitado:</th>
                         <tr>
-                            <td>Cliente:</td>
-                            <td>
-                                <a href="#">mbelo.br@gmail.com</a>
-                            </td>
+                            <th>Cliente:</th>
+                            <th>Tipo de serviço:</th>
+                            <th>Serviço:</th>
                             
                         </tr>
+                        <?php 
+                        $id = $_SESSION['id'];
+                        $query_servico = "  SELECT *
+                                            FROM servicos as s
+                                            INNER JOIN prestadores as p
+                                            ON s.id_cliente = p.id
+                                            WHERE p.id = $id
+                                            ORDER BY numero_id DESC
+                                            LIMIT 1";
+
+                        $result_servico = $conn->prepare($query_servico);
+                        $result_servico->execute();
+
+                        while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
+                            // var_dump($row_servico);
+                            extract($row_servico);
+                        
+                        ?>
                         <tr>
-                            <td>Tipo de serviço:</td>
-                            <td>Bombeiro Hidráulico</td>
+                            <td>
+                                <a href="#"><?php echo "$email_cliente";?></a>
+                            </td>
+                            <td><?php echo "$nome_servico";?></td>
+                            <td><?php echo "$descricao_servico";?></td>
+                        </tr>
+                        <?php } ?>
+                        <tr>
                             <td>
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-default">Iniciar</button>
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>Serviço:</td>
-                            <td>Vazamento em descarga</td>
+                            
                         </tr>
                     </tbody>
                     <tbody>
                         <th>Serviço em execução:</th>
                         <tr>
-                            <td>Número:</td>
-                            <td>8743462</td>
-                            
+                            <th>Numero:</th>
+                            <th>Cliente:</th>
+                            <th>Serviço:</th>
                         </tr>
                         <tr>
                             <td>Serviço:</td>

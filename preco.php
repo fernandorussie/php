@@ -1,4 +1,6 @@
 <?php
+    $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+    $nome = filter_input(INPUT_GET, "dados", FILTER_SANITIZE_STRING);
     include_once('protect.php');
 ?>
 <!DOCTYPE html>

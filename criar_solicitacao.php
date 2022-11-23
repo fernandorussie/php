@@ -5,7 +5,7 @@ include_once('protect.php');
 //Receber os dados do formulário
 $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 var_dump($dados);
-
+$id = $_SESSION['id'];
 //Verificar se usuario preencheu todos os campos e clicou no botão
 if(isset($_POST['nome_servico']) || isset($_POST['descricao_servico'])) {
 
@@ -18,8 +18,8 @@ if(isset($_POST['nome_servico']) || isset($_POST['descricao_servico'])) {
         session_start();
       }
         $query_criar_servico = "INSERT INTO servicos
-                      (numero_id, nome_servico, descricao_servico, preco_servico, status_servico) VALUES
-                      (:numero_id,:nome_servico,:descricao_servico,:preco_servico,:status_servico)";
+                      (numero_id, nome_servico, descricao_servico, preco_servico, status_servico,	id_cliente) VALUES
+                      (:numero_id,:nome_servico,:descricao_servico,:preco_servico,:status_servico,:id_cliente)";
 
         $cad_servico = $conn->prepare($query_criar_servico);
         $cad_servico->bindParam(':numero_id', $dados['numero_id'], PDO::PARAM_STR);
@@ -27,8 +27,9 @@ if(isset($_POST['nome_servico']) || isset($_POST['descricao_servico'])) {
         $cad_servico->bindParam(':descricao_servico', $dados['descricao_servico'], PDO::PARAM_STR);
         $cad_servico->bindParam(':preco_servico', $dados['preco_servico'], PDO::PARAM_STR);
         $cad_servico->bindParam(':status_servico', $dados['status_servico'], PDO::PARAM_STR);
+        $cad_servico->bindParam(':id_cliente', $_SESSION['id'], PDO::PARAM_STR);
         $cad_servico->execute();
-        header("Location: preco.php");
+        header('Location: preco.php');
     }      
 }
 ?>
