@@ -47,15 +47,17 @@ include_once('protect.php');
                                             ON s.id_cliente = p.id
                                             WHERE p.id = $id
                                             ORDER BY numero_id DESC
-                                            LIMIT 1";
+                                            ";
 
                         $result_servico = $conn->prepare($query_servico);
                         $result_servico->execute();
-
+                        
                         while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
                             // var_dump($row_servico);
                             extract($row_servico);
                         
+                            if($status_servico == "0"){
+
                         ?>
                         <tr>
                             <td>
@@ -63,16 +65,15 @@ include_once('protect.php');
                             </td>
                             <td><?php echo "$nome_servico";?></td>
                             <td><?php echo "$descricao_servico";?></td>
+                            <tr>
+                                <td>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Iniciar</button>
+                                    </div>
+                                </td>
+                            </tr>
                         </tr>
-                        <?php } ?>
-                        <tr>
-                            <td>
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Iniciar</button>
-                                </div>
-                            </td>
-                            
-                        </tr>
+                        <?php }} ?>
                     </tbody>
                     <tbody>
                         <th>Serviço em execução:</th>
@@ -81,24 +82,46 @@ include_once('protect.php');
                             <th>Cliente:</th>
                             <th>Serviço:</th>
                         </tr>
-                        <tr>
-                            <td>Serviço:</td>
-                            <td>Gasista - Conserto de vazamento</td>
-                            <td>
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Colocar Pendente</button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Cliente:</td>
-                            <td>francisco@ymail.com</td>
-                            <td>
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Concluir</button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+                            $query_servico = "  SELECT *
+                                                FROM servicos as s
+                                                INNER JOIN prestadores as p
+                                                ON s.id_cliente = p.id
+                                                WHERE p.id = $id
+                                                ORDER BY numero_id ASC
+                                                ";
+
+                            $result_servico = $conn->prepare($query_servico);
+                            $result_servico->execute();
+                            while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
+                                // var_dump($row_servico);
+                                extract($row_servico);
+                                
+                                if($status_servico == "1"){
+
+                        ?>
+                            
+                                    <tr>
+                                        <td><?php echo "$numero_id";?></td>
+                                        <td><?php echo "$email_cliente";?></td>
+                                        <td><?php echo "$descricao_servico";?></td>
+                                        <tr>
+                                            <td>
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">Colocar Pendente</button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-default">Concluir</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tr>
+                                    <?php 
+                                }
+                            }
+                                    ?>
                     </tbody>
                     <tbody>
                         <th>Serviço Pendentes:</th>
@@ -108,20 +131,32 @@ include_once('protect.php');
                             <th>Serviço:</th>
                             <th>Cliente/Motivo:</th>
                         </tr>
+                        <?php
+                            $query_servico = "  SELECT *
+                                                FROM servicos as s
+                                                INNER JOIN prestadores as p
+                                                ON s.id_cliente = p.id
+                                                WHERE p.id = $id
+                                                ORDER BY numero_id ASC
+                                                ";
+
+                            $result_servico = $conn->prepare($query_servico);
+                            $result_servico->execute();
+                            while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
+                                // var_dump($row_servico);
+                                extract($row_servico);
+                                
+                                if($status_servico == "2"){
+
+                        ?>
                         <tr>
-                            <td>8743462</td> 
+                            <td><?php echo "$numero_id";?></td> 
                             <td>01/03/2022</td>
-                            <td>Bombeiro Hidraulico - Vazamento em descarga</td>
-                            <td>ana@yahoo.com.br / Aguardando comprar cano</td>
+                            <td><?php echo "$nome_servico";?> - <?php echo "$descricao_servico";?></td>
+                            <td><?php echo "$email_cliente";?> / Aguardando comprar cano</td>
                             <td><a href="#">Continuar</a></td>
                         </tr>
-                        <tr>
-                            <td>8273028</td> 
-                            <td>20/01/2022</td>
-                            <td>Eletricista - Interruptor não funciona</td>
-                            <td>claudio@yahoo.com.br / Aguardando comprar interruptor</td>
-                            <td><a href="#">Continuar</a></td>
-                        </tr>
+                        <?php }}?>
                     </tbody>
                 </table>
             </div>
