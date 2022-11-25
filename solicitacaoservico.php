@@ -30,7 +30,7 @@ include_once('conexao.php');
         <div class="col-3">
             <select class="custom-select" name="nome_servico" id="select-tipo-servico">
                 <option selected>Escolha o Tipo</option>
-                <option>Bombeiro Hidráulico</option>
+                <option>Bombeiro Hidraulico</option>
                 <option>Eletricista</option>
                 <option>Mecanico</option>
             </select>
@@ -54,6 +54,9 @@ include_once('conexao.php');
         <!-- <input style="display:none" type="text" name="numero_id" value=""> -->
         <input style="display:none" type="hidden" name="preco_servico" value="80">
         <input style="display:none" type="hidden" name="status_servico" value="1">
+        <input style="display:none" type="hidden" name="id_prestador" value="2">
+        <input style="display:none" type="hidden" name="email_prestador" value="prestado2@teste.com.br">
+        <input style="display:none" type="hidden" name="dia_pedido" value="<?php date('d/m/Y'); ?>">
     </form>
     </div>
 </body>

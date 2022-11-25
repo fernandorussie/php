@@ -35,6 +35,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           $_SESSION['id'] = $row_usuario['id'];
           $_SESSION['nome'] = $row_usuario['nome'];
           $_SESSION['credito'] = $row_usuario['credito'];
+          $_SESSION['email'] = $row_usuario['email'];
           header("Location: listasolicitacao.php");
         }else{
           $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
@@ -74,73 +75,6 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
   }
 }
 
-
-
-// if (!empty($dados['SendLogin'])) {
-//     var_dump($dados);
-//     $query_usuario = "SELECT id, email, senha 
-//                       FROM usuarios 
-//                       WHERE email = :email 
-//                       LIMIT 1";
-//     $result_usuario = $conn->prepare($query_usuario);
-//     $result_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-//     $result_usuario->execute();
-
-//     if(($result_usuario) AND ($result_usuario->rowCount() != 0)){
-//       $row_usuario = $result_usuario->fetch(PDO::FETCH_ASSOC);
-//       var_dump($row_usuario);
-//       if(password_verify($dados['senha'], $row_usuario['senha'])){
-//         echo "Usuário logado!";
-//         
-//       }else{
-//         $_SESSION['msg'] = "Erro: senha inválida!";
-//       }
-//     }else{
-//       $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
-//     }
-  
-//   if(isset($_SESSION['msg'])){
-//     echo $_SESSION['msg'];
-//     unset($_SESSION['msg']);
-//   }
-// }
-
-//Primeira forma de LOGIN
-// if(isset($_POST['email']) || isset($_POST['senha'])) {
-
-//   if(strlen($_POST['email']) == 0) {
-//     echo "Preencha seu e-mail";
-//   } else if(strlen($_POST['senha']) == 0) {
-//     echo "Preencha sua senha";
-//   } else {
-
-//     $email = $pdo->quote($_POST['email']);
-//     $senha = $pdo->quote($_POST['senha']);
-
-//     $sql_code = "SELECT * FROM usuarios WHERE email = '$email' AND senha = '$senha'";
-//     $sql_query = $pdo->query($sql_code) or die("Falha na execução do código SQL: " . $pdo->error);
-
-//     $quantidade = $sql_query->num_rows;
-
-//     if($quantidade == 1) {
-        
-//       $usuario = $sql_query->fetch_assoc();
-
-//       if(!isset($_SESSION)) {
-//         session_start();
-//       }
-
-//       $_SESSION['id'] = $usuario['id'];
-//       $_SESSION['nome'] = $usuario['nome'];
-
-//       header("Location: listasolicitacao.php");
-
-//     } else {
-//       echo "Falha ao logar! E-mail ou senha incorretos";
-//     }
-
-//   }
-// }
 ?>
 <!DOCTYPE html>
 <html>
