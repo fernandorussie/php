@@ -35,7 +35,7 @@ include_once('protect.php');
                     <thead>
                         <h3>Painel do Prestador</h3>  
                     </thead>
-                    <tbody>
+                    <tbody id="first_table">
                         <th>Novo serviço solicitado:</th>
                         <tr>
                             <th>Cliente:</th>
@@ -71,11 +71,15 @@ include_once('protect.php');
                             <td><?php echo "$descricao_servico";?></td>
                             <tr>
                                 <td>
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Iniciar</button>
+                                    <div class="col-sm-offset-2 col-sm-10 btn-execute">
+                                        <button type="submit" name="<?=$numero_id?>" value="1">Iniciar</button>
                                     </div>
                                 </td>
                             </tr>
+                            <form id="favoritar" action="update_status.php" method="POST">
+                                <input type="hidden" id="id_usuario" name="id_usuario">
+                                <input type="hidden" id="nota" name="nota">
+                            </form>
                         </tr>
                         <?php }} ?>
                     </tbody>
@@ -92,8 +96,7 @@ include_once('protect.php');
                                                 INNER JOIN prestadores as p
                                                 ON s.id_prestador = p.id
                                                 WHERE p.id = $id
-                                                ORDER BY numero_id ASC
-                                                ";
+                                                ORDER BY numero_id DESC";
 
                             $result_servico = $conn->prepare($query_servico);
                             $result_servico->execute();
@@ -102,7 +105,6 @@ include_once('protect.php');
                                 extract($row_servico);
                                 
                                 if($status_servico == "1"){
-                            $id_pedido = $numero_id;
                         ?>
                             
                                     <tr>
@@ -111,13 +113,13 @@ include_once('protect.php');
                                         <td><?php echo "$descricao_servico";?></td>
                                         <tr>
                                             <td>
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-default">Colocar Pendente</button>
+                                                <div class="col-sm-offset-2 col-sm-10 btn-pending">
+                                                    <button type="submit" name="<?=$numero_id?>" value="2">Colocar Pendente</button>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                <input type="radio" name="<?=$numero_id?>" value="8">
+                                                <div class="col-sm-offset-2 col-sm-10 btn-conclude">
+                                                <button type="submit" name="<?=$numero_id?>" value="3">Concluir</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -127,11 +129,9 @@ include_once('protect.php');
                                             <input type="hidden" id="nota" name="nota">
                                         </form>
                                     </tr>
-                                    <?php 
-                                    break;
+                                    <?php
                                     
-                                }elseif($status_servico == "4"){
-                                    
+                                }elseif($status_servico !== "1"){
                                     
                                     ?>
                                     <td>
@@ -218,14 +218,42 @@ include_once('protect.php');
 
 
         <script>
+            //Mudar Status para Concluido
             $(function() {
-                $("#selecao_nota input[type=radio]").bind("click",
+                $("#selecao_status .btn-conclude button[type=submit]").bind("click",
                 function()
                 {
                     var str_id = this.name;
-                    $("#id_usuario").val( str_id[1]);
+                    $("#id_usuario").val(str_id);
                     $("#nota").val( this.value);
                     $("#favoritar").submit();
+                }
+                );
+            });
+
+            //Mudar Status para Pendente
+            $(function() {
+                $("#selecao_status .btn-pending button[type=submit]").bind("click",
+                function()
+                {
+                    var str_id = this.name;
+                    $("#id_usuario").val(str_id);
+                    $("#nota").val( this.value);
+                    $("#favoritar").submit();
+                }
+                );
+            });
+
+            //Mudar Status para em Execução
+            $(function() {
+                $("#first_table .btn-execute button[type=submit]").bind("click",
+                function()
+                {
+                    var str_id = this.name;
+                    $("#id_usuario").val(str_id);
+                    $("#nota").val( this.value);
+                    $("#favoritar").submit();
+                    console.log(str_id);
                 }
                 );
             });

@@ -2,10 +2,10 @@
 -- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Tempo de geração: 25-Nov-2022 às 14:17
--- Versão do servidor: 5.7.36
--- versão do PHP: 7.4.26
+-- Host: 127.0.0.1
+-- Tempo de geração: 25-Nov-2022 às 20:50
+-- Versão do servidor: 10.4.22-MariaDB
+-- versão do PHP: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,15 +27,13 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
-CREATE TABLE IF NOT EXISTS `clientes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `clientes` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) NOT NULL,
   `email` varchar(140) NOT NULL,
   `senha` varchar(16) NOT NULL,
-  `credito` int(3) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+  `credito` int(3) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `clientes`
@@ -52,12 +50,10 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `credito`) VALUES
 -- Estrutura da tabela `lista_produto_servico`
 --
 
-DROP TABLE IF EXISTS `lista_produto_servico`;
-CREATE TABLE IF NOT EXISTS `lista_produto_servico` (
-  `cod_servico` int(7) NOT NULL AUTO_INCREMENT,
-  `nome_servico` varchar(220) NOT NULL,
-  PRIMARY KEY (`cod_servico`)
-) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=latin1;
+CREATE TABLE `lista_produto_servico` (
+  `cod_servico` int(7) NOT NULL,
+  `nome_servico` varchar(220) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `lista_produto_servico`
@@ -75,9 +71,8 @@ INSERT INTO `lista_produto_servico` (`cod_servico`, `nome_servico`) VALUES
 -- Estrutura da tabela `pedido`
 --
 
-DROP TABLE IF EXISTS `pedido`;
-CREATE TABLE IF NOT EXISTS `pedido` (
-  `cod_pedido` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pedido` (
+  `cod_pedido` int(11) NOT NULL,
   `dia_pedido` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cod_status` int(11) NOT NULL,
   `cod_cliente` int(11) NOT NULL,
@@ -85,9 +80,8 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `cod_prestador` int(11) NOT NULL,
   `email_prestador` varchar(140) COLLATE utf8mb4_unicode_ci NOT NULL,
   `cod_produtos` int(11) NOT NULL,
-  `cod_lista_produtos` int(11) NOT NULL,
-  PRIMARY KEY (`cod_pedido`)
-) ENGINE=MyISAM AUTO_INCREMENT=10002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `cod_lista_produtos` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `pedido`
@@ -102,14 +96,12 @@ INSERT INTO `pedido` (`cod_pedido`, `dia_pedido`, `cod_status`, `cod_cliente`, `
 -- Estrutura da tabela `prestadores`
 --
 
-DROP TABLE IF EXISTS `prestadores`;
-CREATE TABLE IF NOT EXISTS `prestadores` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `prestadores` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) NOT NULL,
   `email` varchar(140) NOT NULL,
-  `senha` varchar(16) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+  `senha` varchar(16) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `prestadores`
@@ -125,14 +117,12 @@ INSERT INTO `prestadores` (`id`, `nome`, `email`, `senha`) VALUES
 -- Estrutura da tabela `produto_servico`
 --
 
-DROP TABLE IF EXISTS `produto_servico`;
-CREATE TABLE IF NOT EXISTS `produto_servico` (
-  `cod_produto` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produto_servico` (
+  `cod_produto` int(11) NOT NULL,
   `nome_produto` varchar(140) COLLATE utf8mb4_unicode_ci NOT NULL,
   `preco_produto` int(11) NOT NULL,
-  `cod_servico` int(11) NOT NULL,
-  PRIMARY KEY (`cod_produto`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `cod_servico` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Extraindo dados da tabela `produto_servico`
@@ -156,9 +146,8 @@ INSERT INTO `produto_servico` (`cod_produto`, `nome_produto`, `preco_produto`, `
 -- Estrutura da tabela `servicos`
 --
 
-DROP TABLE IF EXISTS `servicos`;
-CREATE TABLE IF NOT EXISTS `servicos` (
-  `numero_id` int(7) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `servicos` (
+  `numero_id` int(7) NOT NULL,
   `nome_servico` varchar(220) NOT NULL,
   `descricao_servico` varchar(220) NOT NULL,
   `preco_servico` varchar(220) NOT NULL,
@@ -167,22 +156,18 @@ CREATE TABLE IF NOT EXISTS `servicos` (
   `email_cliente` varchar(140) NOT NULL,
   `id_prestador` int(100) NOT NULL,
   `email_prestador` varchar(140) NOT NULL,
-  `dia_pedido` varchar(30) NOT NULL,
-  PRIMARY KEY (`numero_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100023 DEFAULT CHARSET=latin1;
+  `dia_pedido` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `servicos`
 --
 
 INSERT INTO `servicos` (`numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`, `id_cliente`, `email_cliente`, `id_prestador`, `email_prestador`, `dia_pedido`) VALUES
-(1, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2', '1', 'cliente1@teste.com.br', 1, 'prestador2@teste.com.br', '0'),
-(100005, 'Bombeiro', 'Cano quebrado', '80', '1', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br', '0'),
-(100008, 'Bombeiro', 'Cano Quebrado', '80', '0', '1', 'cliente1@teste.com.br', 2, 'prestador2@teste.com.br', '0'),
-(100009, 'Bombeiro', 'Cano Quebrado cliente2', '80', '0', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br', '0'),
-(100016, 'Bombeiro Hidraulico', 'Teste de painel do prestador', '80', '2', '1', 'fernando', 2, '', '0'),
-(100021, 'Bombeiro HidrÃ¡ulico', 'teste dia', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022'),
-(100022, 'Bombeiro Hidraulico', 'Teste do dia', '80', '2', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022');
+(100024, 'Bombeiro Hidraulico', 'Vazamento no Teto', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022'),
+(100025, 'Eletricista', 'Fio cortado', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022'),
+(100026, 'Mecanico', 'Carro quebrado', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022'),
+(100027, 'Bombeiro Hidraulico', 'Vazamento em Descarga', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022');
 
 -- --------------------------------------------------------
 
@@ -190,15 +175,13 @@ INSERT INTO `servicos` (`numero_id`, `nome_servico`, `descricao_servico`, `preco
 -- Estrutura da tabela `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `id` int(11) NOT NULL,
   `nome` varchar(140) DEFAULT NULL,
   `email` varchar(140) NOT NULL,
   `senha` varchar(220) NOT NULL,
-  `credito` decimal(20,0) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+  `credito` decimal(20,0) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios`
@@ -213,13 +196,11 @@ INSERT INTO `usuarios` (`id`, `nome`, `email`, `senha`, `credito`) VALUES
 -- Estrutura da tabela `usuarios1`
 --
 
-DROP TABLE IF EXISTS `usuarios1`;
-CREATE TABLE IF NOT EXISTS `usuarios1` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios1` (
+  `id` int(11) NOT NULL,
   `usuario` varchar(220) NOT NULL,
-  `senha_usuario` varchar(220) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  `senha_usuario` varchar(220) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `usuarios1`
@@ -227,6 +208,110 @@ CREATE TABLE IF NOT EXISTS `usuarios1` (
 
 INSERT INTO `usuarios1` (`id`, `usuario`, `senha_usuario`) VALUES
 (1, 'cesar@celke.com.br', 'senha1');
+
+--
+-- Índices para tabelas despejadas
+--
+
+--
+-- Índices para tabela `clientes`
+--
+ALTER TABLE `clientes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `lista_produto_servico`
+--
+ALTER TABLE `lista_produto_servico`
+  ADD PRIMARY KEY (`cod_servico`);
+
+--
+-- Índices para tabela `pedido`
+--
+ALTER TABLE `pedido`
+  ADD PRIMARY KEY (`cod_pedido`);
+
+--
+-- Índices para tabela `prestadores`
+--
+ALTER TABLE `prestadores`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `produto_servico`
+--
+ALTER TABLE `produto_servico`
+  ADD PRIMARY KEY (`cod_produto`);
+
+--
+-- Índices para tabela `servicos`
+--
+ALTER TABLE `servicos`
+  ADD PRIMARY KEY (`numero_id`);
+
+--
+-- Índices para tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices para tabela `usuarios1`
+--
+ALTER TABLE `usuarios1`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de tabelas despejadas
+--
+
+--
+-- AUTO_INCREMENT de tabela `clientes`
+--
+ALTER TABLE `clientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT de tabela `lista_produto_servico`
+--
+ALTER TABLE `lista_produto_servico`
+  MODIFY `cod_servico` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100014;
+
+--
+-- AUTO_INCREMENT de tabela `pedido`
+--
+ALTER TABLE `pedido`
+  MODIFY `cod_pedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10002;
+
+--
+-- AUTO_INCREMENT de tabela `prestadores`
+--
+ALTER TABLE `prestadores`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de tabela `produto_servico`
+--
+ALTER TABLE `produto_servico`
+  MODIFY `cod_produto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT de tabela `servicos`
+--
+ALTER TABLE `servicos`
+  MODIFY `numero_id` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100029;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT de tabela `usuarios1`
+--
+ALTER TABLE `usuarios1`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

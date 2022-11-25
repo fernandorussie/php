@@ -71,6 +71,7 @@ include_once('protect.php');
                         
                         <tr>
                             <td><?php echo "$numero_id"; ?></td> 
+                            <td><?php echo "$dia_pedido"; ?></td> 
                             <td><?php echo "$nome_servico"?></td>
                             <td><?php echo "$descricao_servico"?></td>
                             <td>
