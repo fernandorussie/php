@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Tempo de geração: 23-Nov-2022 às 22:48
+-- Tempo de geração: 25-Nov-2022 às 14:17
 -- Versão do servidor: 5.7.36
 -- versão do PHP: 7.4.26
 
@@ -49,6 +49,56 @@ INSERT INTO `clientes` (`id`, `nome`, `email`, `senha`, `credito`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `lista_produto_servico`
+--
+
+DROP TABLE IF EXISTS `lista_produto_servico`;
+CREATE TABLE IF NOT EXISTS `lista_produto_servico` (
+  `cod_servico` int(7) NOT NULL AUTO_INCREMENT,
+  `nome_servico` varchar(220) NOT NULL,
+  PRIMARY KEY (`cod_servico`)
+) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `lista_produto_servico`
+--
+
+INSERT INTO `lista_produto_servico` (`cod_servico`, `nome_servico`) VALUES
+(1, 'Bombeiro Hidraulico'),
+(2, 'Carpintaria'),
+(3, 'Eletricista'),
+(4, 'Chaveiro');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `pedido`
+--
+
+DROP TABLE IF EXISTS `pedido`;
+CREATE TABLE IF NOT EXISTS `pedido` (
+  `cod_pedido` int(11) NOT NULL AUTO_INCREMENT,
+  `dia_pedido` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cod_status` int(11) NOT NULL,
+  `cod_cliente` int(11) NOT NULL,
+  `email_cliente` varchar(140) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cod_prestador` int(11) NOT NULL,
+  `email_prestador` varchar(140) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cod_produtos` int(11) NOT NULL,
+  `cod_lista_produtos` int(11) NOT NULL,
+  PRIMARY KEY (`cod_pedido`)
+) ENGINE=MyISAM AUTO_INCREMENT=10002 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `pedido`
+--
+
+INSERT INTO `pedido` (`cod_pedido`, `dia_pedido`, `cod_status`, `cod_cliente`, `email_cliente`, `cod_prestador`, `email_prestador`, `cod_produtos`, `cod_lista_produtos`) VALUES
+(10001, '01/03/2022', 0, 1, 'cliente1@teste.com.br', 1, 'prestador1@teste.com.br', 0, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `prestadores`
 --
 
@@ -72,6 +122,37 @@ INSERT INTO `prestadores` (`id`, `nome`, `email`, `senha`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura da tabela `produto_servico`
+--
+
+DROP TABLE IF EXISTS `produto_servico`;
+CREATE TABLE IF NOT EXISTS `produto_servico` (
+  `cod_produto` int(11) NOT NULL AUTO_INCREMENT,
+  `nome_produto` varchar(140) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `preco_produto` int(11) NOT NULL,
+  `cod_servico` int(11) NOT NULL,
+  PRIMARY KEY (`cod_produto`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Extraindo dados da tabela `produto_servico`
+--
+
+INSERT INTO `produto_servico` (`cod_produto`, `nome_produto`, `preco_produto`, `cod_servico`) VALUES
+(1, 'Vazamento em Descarga', 200, 1),
+(2, 'Vazamento em Torneira', 180, 1),
+(3, 'Vazamento no Teto', 250, 1),
+(4, 'Reparo em armário', 150, 2),
+(5, 'Reparo em cadeira', 100, 2),
+(6, 'Interruptor não funciona', 80, 3),
+(7, 'Fio com mal-contato', 75, 3),
+(8, 'Destrancar porta', 120, 4),
+(9, 'Destrancar cadeado', 80, 4),
+(10, 'Conserto de tomada', 40, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura da tabela `servicos`
 --
 
@@ -86,47 +167,22 @@ CREATE TABLE IF NOT EXISTS `servicos` (
   `email_cliente` varchar(140) NOT NULL,
   `id_prestador` int(100) NOT NULL,
   `email_prestador` varchar(140) NOT NULL,
+  `dia_pedido` varchar(30) NOT NULL,
   PRIMARY KEY (`numero_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100017 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=100023 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `servicos`
 --
 
-INSERT INTO `servicos` (`numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`, `id_cliente`, `email_cliente`, `id_prestador`, `email_prestador`) VALUES
-(1, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '0', '1', 'cliente1@teste.com.br', 2, 'prestador2@teste.com.br'),
-(100005, 'Bombeiro', 'Cano quebrado', '80', '1', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br'),
-(100008, 'Bombeiro', 'Cano Quebrado', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestador2@teste.com.br'),
-(100009, 'Bombeiro', 'Cano Quebrado cliente2', '80', '0', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br'),
-(100016, 'Bombeiro Hidráulico', 'Teste de painel do prestador', '80', '2', '1', 'fernando', 0, '');
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `servicos1`
---
-
-DROP TABLE IF EXISTS `servicos1`;
-CREATE TABLE IF NOT EXISTS `servicos1` (
-  `numero_id` int(7) NOT NULL AUTO_INCREMENT,
-  `nome_servico` varchar(220) NOT NULL,
-  `descricao_servico` varchar(220) NOT NULL,
-  `preco_servico` varchar(220) NOT NULL,
-  `status_servico` varchar(30) NOT NULL,
-  `id_clientes` varchar(100) NOT NULL,
-  `id_prestadores` varchar(100) NOT NULL,
-  PRIMARY KEY (`numero_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100014 DEFAULT CHARSET=latin1;
-
---
--- Extraindo dados da tabela `servicos1`
---
-
-INSERT INTO `servicos1` (`numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`, `id_clientes`, `id_prestadores`) VALUES
-(1, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2', '1', ''),
-(100010, 'Bombeiro', 'teste cliente2', '80', '1', '2', ''),
-(100011, 'Bombeiro', 'teste cliente2', '80', '1', '2', ''),
-(100012, 'Eletricista', 'teste cliente1', '80', '1', '1', '');
+INSERT INTO `servicos` (`numero_id`, `nome_servico`, `descricao_servico`, `preco_servico`, `status_servico`, `id_cliente`, `email_cliente`, `id_prestador`, `email_prestador`, `dia_pedido`) VALUES
+(1, 'Bombeiro Hidraulico', 'Vazamento Cano', '100', '2', '1', 'cliente1@teste.com.br', 1, 'prestador2@teste.com.br', '0'),
+(100005, 'Bombeiro', 'Cano quebrado', '80', '1', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br', '0'),
+(100008, 'Bombeiro', 'Cano Quebrado', '80', '0', '1', 'cliente1@teste.com.br', 2, 'prestador2@teste.com.br', '0'),
+(100009, 'Bombeiro', 'Cano Quebrado cliente2', '80', '0', '2', 'cliente2@teste.com.br', 1, 'prestador1@teste.com.br', '0'),
+(100016, 'Bombeiro Hidraulico', 'Teste de painel do prestador', '80', '2', '1', 'fernando', 2, '', '0'),
+(100021, 'Bombeiro HidrÃ¡ulico', 'teste dia', '80', '1', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022'),
+(100022, 'Bombeiro Hidraulico', 'Teste do dia', '80', '2', '1', 'cliente1@teste.com.br', 2, 'prestado2@teste.com.br', '25/11/2022');
 
 -- --------------------------------------------------------
 
