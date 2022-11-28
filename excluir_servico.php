@@ -15,7 +15,7 @@ var_dump($result_excluir);
 	if( $result_excluir )
 	{
         echo "deu bom!";
-        header("Location: listasolicitacao.php");
+        header("Location: painelcliente.php");
 	}else{
         echo 'Error';
     }

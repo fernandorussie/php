@@ -36,7 +36,7 @@ if(isset($_POST['email']) || isset($_POST['senha'])){
           $_SESSION['nome'] = $row_usuario['nome'];
           $_SESSION['credito'] = $row_usuario['credito'];
           $_SESSION['email'] = $row_usuario['email'];
-          header("Location: listasolicitacao.php");
+          header("Location: painelcliente.php");
         }else{
           $_SESSION['msg'] = "Erro: Usuário ou senha inválida!";
         }
