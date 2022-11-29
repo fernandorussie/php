@@ -1,30 +1,5 @@
 <?php
-include_once('protect.php');
-  $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);
-  var_dump($tipo);
-  // if(isset($_POST['email']) || isset($_POST['senha'])) {
-
-  //   if(strlen($_POST['email']) == 0) {
-  //     echo "Preencha seu e-mail";
-  //   } else if(strlen($_POST['senha']) == 0) {
-  //     echo "Preencha sua senha";
-  //   } else {
-  //     if(!isset($_SESSION)) {
-  //       session_start();
-  //     }
-  //     $query_usuario = "INSERT INTO usuarios
-  //                   (nome, email, senha) VALUES
-  //                   (:nome,:email,:senha)";
-  //     $cad_usuario = $mysqli->prepare($query_usuario);
-  //     $cad_usuario->bindParam(':nome', $dados['nome'], PDO::PARAM_STR);
-  //     $cad_usuario->bindParam(':email', $dados['email'], PDO::PARAM_STR);
-  //     $cad_usuario->bindParam(':senha', $dados['senha'], PDO::PARAM_STR);
-  //     $cad_usuario->execute();
-  //     header("Location: sendemail.php");
-  //   }
-  // }
-
-  
+  $tipo = filter_input(INPUT_GET, "tipo", FILTER_SANITIZE_STRING);  
 ?>
 
 <!DOCTYPE html>

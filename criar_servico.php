@@ -83,9 +83,9 @@
         </div>
         
         <input style="display:none;" id="cod_produto" type="hidden" name="cod_produto">
-        <input style="display:none" type="hidden" name="status_servico" value="1">
+        <input style="display:none" type="hidden" name="status_servico" value="0">
         <input style="display:none" type="hidden" name="id_prestador" value="<?=$aleatorio?>">
-        <input style="display:none" type="hidden" name="email_prestador" value="prestado<?=$aleatorio?>@teste.com.br">
+        <input style="display:none" type="hidden" name="email_prestador" value="prestador<?=$aleatorio?>@teste.com.br">
         <input style="display:none" type="hidden" name="preco_produto" value="">
     </form>
     </div>
