@@ -60,6 +60,7 @@ include_once('protect.php');
                             // var_dump($row_servico);
                             extract($row_servico);
                         
+                            //Novo Serviço adicionado = 0
                             if($status_servico == "0"){
 
                         ?>
@@ -81,7 +82,8 @@ include_once('protect.php');
                                 <input type="hidden" id="nota" name="nota">
                             </form>
                         </tr>
-                        <?php }} ?>
+                        <?php }
+                        } ?>
                     </tbody>
                     <tbody id="selecao_status">
                         <th>Serviço em execução:</th>
@@ -95,18 +97,18 @@ include_once('protect.php');
                                                 FROM servicos as s
                                                 INNER JOIN prestadores as p
                                                 ON s.id_prestador = p.id
-                                                WHERE p.id = $id
+                                                WHERE p.id = $id AND s.status_servico = '1'
                                                 ORDER BY numero_id DESC";
 
                             $result_servico = $conn->prepare($query_servico);
                             $result_servico->execute();
-                            while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
+                             while($row_servico = $result_servico->fetch(PDO::FETCH_ASSOC)){
                                 // var_dump($row_servico);
                                 extract($row_servico);
                                 
+                                //Serviço em execução = 1
                                 if($status_servico == "1"){
-                        ?>
-                            
+                                    ?>
                                     <tr>
                                         <td><?php echo "$numero_id";?></td>
                                         <td><?php echo "$email_cliente";?></td>
@@ -130,18 +132,14 @@ include_once('protect.php');
                                         </form>
                                     </tr>
                                     <?php
-                                    
-                                }elseif($status_servico !== "1"){
-                                    
+                                }else{
                                     ?>
                                     <td>
                                         <h3>Não há serviço em execução</h3>
                                     </td>
                                     <?php
-                                    break;
                                 }
-                            }
-                                    ?>
+                            }?>
                     </tbody>
                     <tbody>
                         <th>Serviço Pendentes:</th>
@@ -166,6 +164,7 @@ include_once('protect.php');
                                 // var_dump($row_servico);
                                 extract($row_servico);
                                 
+                                //Serviço pendente = 2
                                 if($status_servico == "2"){
 
                         ?>
@@ -174,7 +173,12 @@ include_once('protect.php');
                             <td><?php echo "$dia_pedido";?></td>
                             <td><?php echo "$nome_servico";?> - <?php echo "$descricao_servico";?></td>
                             <td><?php echo "$email_cliente";?> / Aguardando comprar cano</td>
-                            <td><a href="#">Continuar</a></td>
+                            <td class="btn-execute">
+                                <button type="submit" name="<?=$numero_id?>" value="1">
+                                    Continuar
+                                </button>
+                            </td>
+                          
                         </tr>
                         <?php }}?>
                     </tbody>

@@ -1,7 +1,8 @@
 <?php
 	include_once('conexao.php');
-	require_once("protect.php");
-
+	
+	session_start();
+	ob_start();
 	$id = $_POST["id"];
 var_dump($id);
     $query_servicos = " DELETE FROM servicos 
@@ -14,7 +15,6 @@ var_dump($result_excluir);
 
 	if( $result_excluir )
 	{
-        echo "deu bom!";
         header("Location: painelcliente.php");
 	}else{
         echo 'Error';
